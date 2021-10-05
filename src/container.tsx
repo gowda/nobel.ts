@@ -1,20 +1,10 @@
 import React from 'react';
-import axios from 'axios';
-import { useQuery } from 'react-query';
 
 import LaureateList from './components/laureate-list';
-import { APIResponse } from './types/api-response';
+import { useLaureates } from './queries';
 
 export default () => {
-  const { isLoading, isError, error, data } = useQuery(
-    'laureates',
-    () =>
-      axios
-        .get<APIResponse>('http://api.nobelprize.org/2.1/laureates')
-        .then((response) => response.data)
-        .then((rData) => rData.laureates),
-    { staleTime: Infinity, retry: 3 }
-  );
+  const { isLoading, isError, error, data } = useLaureates();
 
   return (
     <div className='container'>
