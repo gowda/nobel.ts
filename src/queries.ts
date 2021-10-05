@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
+import { NobelPrizeCategory } from './types/api-request';
 
 import { APIResponse } from './types/api-response';
 import { Laureate } from './types/laureate';
@@ -24,13 +25,23 @@ const transform = (o: any): any =>
     return { ...acc, [key]: o[key] };
   }, {});
 
-export const useLaureates = () =>
+export const useLaureates = (category?: string) =>
   useInfiniteQuery<APIResponse, Error, Laureate[]>(
-    'laureates',
+    ['laureates', category],
     ({ pageParam }) =>
       axios
         .get<APIResponse>('http://api.nobelprize.org/2.1/laureates', {
-          params: pageParam,
+          params: {
+            ...pageParam,
+            ...(category
+              ? {
+                  nobelPrizeCategory:
+                    Object.values(NobelPrizeCategory)[
+                      Object.keys(NobelPrizeCategory).indexOf(category)
+                    ],
+                }
+              : {}),
+          },
         })
         .then((response) => response.data),
     {

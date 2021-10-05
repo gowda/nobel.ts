@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import LaureateList from './components/laureate-list';
+import Categories from './components/categories';
+
 import { useLaureates } from './queries';
 
 export default () => {
+  const [category, setCategory] = useState<string>();
   const { isLoading, isError, error, data, isFetchingNextPage, fetchNextPage } =
-    useLaureates();
+    useLaureates(category);
 
   return (
     <div className='container'>
@@ -13,7 +16,10 @@ export default () => {
         <h4 className='col-auto'>Nobel laureates</h4>
       </div>
       <div className='row mt-4'>
-        <div className='col-12'>
+        <div className='col-3'>
+          <Categories value={category} onChange={(v) => setCategory(v)} />
+        </div>
+        <div className='col-8'>
           {isLoading && <div>Loading...</div>}
           {isError && <div>Failed to load. {(error as any).message}</div>}
           {data && (
