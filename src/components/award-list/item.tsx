@@ -12,7 +12,7 @@ export default ({ category, awardYear, motivation }: Props) => (
       </div>
     </div>
     <div className='row'>
-      <div className='col-12'>{motivation}</div>
+      <div className='col-12 text-muted font-italic'>{motivation}</div>
     </div>
   </>
 );

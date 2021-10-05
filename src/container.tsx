@@ -7,11 +7,18 @@ import { useLaureates } from './queries';
 
 export default () => {
   const [category, setCategory] = useState<string>();
-  const { isLoading, isError, error, data, isFetchingNextPage, fetchNextPage } =
-    useLaureates(category);
+  const {
+    isLoading,
+    isError,
+    error,
+    data,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useLaureates(category);
 
   return (
-    <div className='container'>
+    <div className='container font-weight-light'>
       <div className='row mt-4'>
         <h4 className='col-auto'>Nobel laureates</h4>
       </div>
@@ -31,7 +38,7 @@ export default () => {
       </div>
       <div className='row mt-4 mb-4 justify-content-center'>
         <div className='col-auto'>
-          {data && (
+          {data && hasNextPage && (
             <button
               type='button'
               className='btn btn-light btn-lg shadow-none'
