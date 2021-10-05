@@ -11,7 +11,7 @@ interface Props {
 export default ({ awards }: Props) => (
   <>
     {awards.map((award) => (
-      <div className='row'>
+      <div key={award.awardYear} className='row'>
         <div className='col-12'>
           <Item {...award} />
         </div>

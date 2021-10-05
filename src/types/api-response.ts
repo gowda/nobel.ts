@@ -57,4 +57,10 @@ export interface APILaureate {
 
 export interface APIResponse {
   laureates: APILaureate[];
+  links: {
+    first?: string;
+    self?: string;
+    next?: string;
+    last?: string;
+  };
 }

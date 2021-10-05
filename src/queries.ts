@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 
 import { APIResponse } from './types/api-response';
 import { Laureate } from './types/laureate';
@@ -25,13 +25,32 @@ const transform = (o: any): any =>
   }, {});
 
 export const useLaureates = () =>
-  useQuery<Laureate[], Error>(
+  useInfiniteQuery<APIResponse, Error, Laureate[]>(
     'laureates',
-    () =>
+    ({ pageParam }) =>
       axios
-        .get<APIResponse>('http://api.nobelprize.org/2.1/laureates')
-        .then((response) => response.data)
-        .then((rData) => rData.laureates)
-        .then((laureates) => laureates.map(transform)),
-    { staleTime: Infinity, retry: 3 }
+        .get<APIResponse>('http://api.nobelprize.org/2.1/laureates', {
+          params: pageParam,
+        })
+        .then((response) => response.data),
+    {
+      staleTime: Infinity,
+      retry: 3,
+      select: (data) => ({
+        pages: data.pages.map((page) => page.laureates.map(transform)),
+        pageParams: data.pageParams,
+      }),
+      getNextPageParam: (lastPage) => {
+        if (!lastPage.links.next) {
+          return undefined;
+        }
+
+        const nextURL = new URL(lastPage.links.next);
+
+        return {
+          offset: nextURL.searchParams.get('offset'),
+          limit: nextURL.searchParams.get('limit'),
+        };
+      },
+    }
   );

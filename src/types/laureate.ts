@@ -17,7 +17,9 @@ interface Event {
 }
 
 export interface Laureate {
-  fullName: string;
-  birth: Event;
+  fullName?: string;
+  orgName?: string;
+  birth?: Event;
+  founded?: Event;
   nobelPrizes: Award[];
 }
