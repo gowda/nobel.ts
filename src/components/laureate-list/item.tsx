@@ -37,7 +37,7 @@ interface Laureate {
 type Props = Laureate;
 
 export default ({ fullName, birth, nobelPrizes }: Props) => (
-  <div className='row'>
+  <div className='row laureate'>
     <div className='col-4'>{fullName.en}</div>
     <div className='col-4'>
       <AwardList awards={nobelPrizes} />
