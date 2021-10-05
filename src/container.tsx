@@ -23,10 +23,10 @@ export default () => {
         <h4 className='col-auto'>Nobel laureates</h4>
       </div>
       <div className='row mt-4'>
-        <div className='col-3'>
+        <div className='col-sm-12 col-md-3'>
           <Categories value={category} onChange={(v) => setCategory(v)} />
         </div>
-        <div className='col-8'>
+        <div className='col-sm-12 col-md-8'>
           {isLoading && <div>Loading...</div>}
           {isError && <div>Failed to load. {(error as any).message}</div>}
           {data && (

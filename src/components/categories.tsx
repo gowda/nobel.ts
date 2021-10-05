@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { NobelPrizeCategory } from '../types/api-request';
+import CategoriesOnTop from './categories-on-top';
+import CategoriesOnLeft from './categories-on-left';
 
 interface Props {
   value?: string;
@@ -8,33 +9,8 @@ interface Props {
 }
 
 export default ({ value, onChange }: Props) => (
-  <ul className='nav flex-column sticky-top nav-pills'>
-    {Object.getOwnPropertyNames(NobelPrizeCategory).map((category) => (
-      <li key={category} className='nav-item mt-2'>
-        <button
-          type='button'
-          className={`nav-link btn btn-link w-100 justify-content-start text-left ${
-            value === category ? 'active' : ''
-          }`}
-          onClick={() => onChange(category)}
-        >
-          {category}
-        </button>
-      </li>
-    ))}
-    {value && (
-      <li className='nav-item mt-2'>
-        <button
-          type='button'
-          className='nav-link btn btn-link text-secondary justify-content-start text-left'
-          onClick={() => onChange(undefined)}
-        >
-          <span className='mr-2 font-weight-bold' aria-hidden='true'>
-            &times;
-          </span>
-          Clear filters
-        </button>
-      </li>
-    )}
-  </ul>
+  <>
+    <CategoriesOnLeft value={value} onChange={onChange} />
+    <CategoriesOnTop value={value} onChange={onChange} />
+  </>
 );
