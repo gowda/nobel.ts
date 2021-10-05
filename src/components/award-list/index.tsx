@@ -1,18 +1,8 @@
 import React from 'react';
 
+import { Award } from '../../types/award';
+
 import Item from './item';
-
-interface I18nString {
-  en: string;
-  se?: string;
-  no?: string;
-}
-
-interface Award {
-  category: I18nString;
-  awardYear: string;
-  motivation: I18nString;
-}
 
 interface Props {
   awards: Award[];
