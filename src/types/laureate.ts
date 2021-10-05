@@ -1,8 +1,23 @@
-import { I18nString, Event } from './api-response';
 import { Award } from './award';
 
+interface Place {
+  city: string;
+  country: string;
+  cityNow: string;
+  countryNow: string;
+  continent: string;
+  locationString: string;
+}
+
+type DateString = string;
+
+interface Event {
+  date: DateString;
+  place: Place;
+}
+
 export interface Laureate {
-  fullName: I18nString;
+  fullName: string;
   birth: Event;
   nobelPrizes: Award[];
 }

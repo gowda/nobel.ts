@@ -1,7 +1,5 @@
-import { I18nString } from './api-response';
-
 export interface Award {
-  category: I18nString;
+  category: string;
   awardYear: string;
-  motivation: I18nString;
+  motivation: string;
 }

@@ -16,15 +16,15 @@ describe('LaureateList', () => {
       <List
         laureates={[
           {
-            fullName: { en: 'Test laureate' },
+            fullName: 'Test laureate',
             birth: {
               place: {
-                city: { en: 'Test city' },
-                cityNow: { en: 'Test city now' },
-                country: { en: 'Test country now' },
-                countryNow: { en: 'Test country now' },
-                continent: { en: 'Test continent' },
-                locationString: { en: 'Test location string' },
+                city: 'Test city',
+                cityNow: 'Test city now',
+                country: 'Test country',
+                countryNow: 'Test country now',
+                continent: 'Test continent',
+                locationString: 'Test location string',
               },
               date: '1970-01-01',
             },

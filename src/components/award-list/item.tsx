@@ -8,11 +8,11 @@ export default ({ category, awardYear, motivation }: Props) => (
   <>
     <div className='row'>
       <div className='col-12'>
-        {category.en}, {awardYear}
+        {category}, {awardYear}
       </div>
     </div>
     <div className='row'>
-      <div className='col-12'>{motivation.en}</div>
+      <div className='col-12'>{motivation}</div>
     </div>
   </>
 );

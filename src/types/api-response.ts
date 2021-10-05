@@ -17,7 +17,7 @@ interface Place {
   locationString: I18nString;
 }
 
-export interface Event {
+interface Event {
   date: DateString;
   place: Place;
 }
@@ -42,7 +42,7 @@ interface Prize {
   affiliations: Affiliation[];
 }
 
-interface Laureate {
+export interface APILaureate {
   id: string;
   knownName: I18nString;
   givenName: I18nString;
@@ -56,5 +56,5 @@ interface Laureate {
 }
 
 export interface APIResponse {
-  laureates: Laureate[];
+  laureates: APILaureate[];
 }

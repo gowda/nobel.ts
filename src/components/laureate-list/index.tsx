@@ -10,7 +10,7 @@ interface Props {
 export default ({ laureates }: Props) => (
   <>
     {laureates.map((laureate) => (
-      <div key={laureate.fullName.en} className='row mt-4'>
+      <div key={laureate.fullName} className='row mt-4'>
         <div className='col-12'>
           <Item {...laureate} />
         </div>
