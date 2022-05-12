@@ -7,15 +7,7 @@ import { useLaureates } from './queries';
 
 export default () => {
   const [category, setCategory] = useState<string>();
-  const {
-    isLoading,
-    isError,
-    error,
-    data,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
-  } = useLaureates(category);
+  const { isLoading, isError, error, data } = useLaureates();
 
   return (
     <div className='container font-weight-light'>
@@ -29,27 +21,10 @@ export default () => {
         <div className='col-sm-12 col-md-8'>
           {isLoading && <div>Loading...</div>}
           {isError && <div>Failed to load. {(error as any).message}</div>}
-          {data && (
-            <LaureateList
-              laureates={data.pages.reduce((acc, v) => [...acc, ...v], [])}
-            />
-          )}
+          {data && <LaureateList laureates={data} />}
         </div>
       </div>
-      <div className='row mt-4 mb-4 justify-content-center'>
-        <div className='col-auto'>
-          {data && hasNextPage && (
-            <button
-              type='button'
-              className='btn btn-light btn-lg shadow-none'
-              disabled={isFetchingNextPage}
-              onClick={() => fetchNextPage()}
-            >
-              {isFetchingNextPage ? 'Loading...' : 'Load more'}
-            </button>
-          )}
-        </div>
-      </div>
+      <div className='row mt-4 mb-4 justify-content-center' />
     </div>
   );
 };

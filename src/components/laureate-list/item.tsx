@@ -12,7 +12,9 @@ export default ({ fullName, orgName, founded, birth, nobelPrizes }: Props) => (
     <div className='col-4'>
       <AwardList awards={nobelPrizes} />
     </div>
-    {founded && <div className='col-4'>{founded.place.country}</div>}
-    {birth && <div className='col-4'>{birth.place.country}</div>}
+    {founded && founded.place && (
+      <div className='col-4'>{founded.place.country}</div>
+    )}
+    {birth && birth.place && <div className='col-4'>{birth.place.country}</div>}
   </div>
 );
