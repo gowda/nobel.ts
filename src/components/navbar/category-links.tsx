@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { NobelPrizeCategory } from '../types/api-request';
+import { NobelPrizeCategory } from '../../types/api-request';
 
 export default () => {
   const { category: value } = useParams();

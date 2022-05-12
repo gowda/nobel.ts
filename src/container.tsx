@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Navbar from './navbar';
+import Navbar from './components/navbar';
 import LaureateList from './components/laureate-list';
-import Award from './award';
+import Award from './components/award';
 
 export default () => (
   <div className='container font-weight-light'>
