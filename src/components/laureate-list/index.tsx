@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useLaureates } from '../../queries';
 import { categoryTag } from '../../utils';
 
+import LoadingMessage from '../loading-message';
+import ErrorMessage from '../error-message';
 import Item from './item';
 
 export default () => {
@@ -11,8 +13,8 @@ export default () => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
-      {isError && <div>Failed to load. {(error as any).message}</div>}
+      {isLoading && <LoadingMessage />}
+      {isError && <ErrorMessage message={`Failed to load. ${error.message}`} />}
       {laureates &&
         laureates
           .filter(({ nobelPrizes }) =>

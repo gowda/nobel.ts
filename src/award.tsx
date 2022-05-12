@@ -2,6 +2,9 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useAwardLaureates } from './queries';
 import { tagCategory } from './utils';
+
+import LoadingMessage from './components/loading-message';
+import ErrorMessage from './components/error-message';
 import Item from './components/laureate-list/item';
 
 export default () => {
@@ -23,8 +26,8 @@ export default () => {
         </div>
       </div>
 
-      {isLoading && <div>Loading...</div>}
-      {isError && <div>Failed to load. {(error as any).message}</div>}
+      {isLoading && <LoadingMessage />}
+      {isError && <ErrorMessage message={`Failed to load. ${error.message}`} />}
       {laureates &&
         laureates.map((laureate) => (
           <div key={laureate.fullName} className='row mt-4'>
