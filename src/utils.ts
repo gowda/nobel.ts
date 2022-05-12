@@ -18,3 +18,23 @@ export const transform = (o: any): any =>
     }
     return { ...acc, [key]: o[key] };
   }, {});
+
+const CATEGORY_TAGS: { [k: string]: string } = {
+  'Physiology or Medicine': 'medicine',
+  Physics: 'physics',
+  Chemistry: 'chemistry',
+  Peace: 'peace',
+  Literature: 'literature',
+  'Economic Sciences': 'economics',
+};
+export const categoryTag = (category: string) => CATEGORY_TAGS[category];
+
+const TAG_CATEGORIES: { [k: string]: string } = {
+  medicine: 'Physiology or Medicine',
+  physics: 'Physics',
+  chemistry: 'Chemistry',
+  peace: 'Peace',
+  literature: 'Literature',
+  economics: 'Economic Sciences',
+};
+export const tagCategory = (tag: string) => TAG_CATEGORIES[tag];
