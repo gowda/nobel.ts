@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import LaureateList from './components/laureate-list';
 import Categories from './components/categories';
@@ -6,7 +6,6 @@ import Categories from './components/categories';
 import { useLaureates } from './queries';
 
 export default () => {
-  const [category, setCategory] = useState<string>();
   const { isLoading, isError, error, data } = useLaureates();
 
   return (
@@ -16,7 +15,7 @@ export default () => {
       </div>
       <div className='row mt-4'>
         <div className='col-sm-12 col-md-3'>
-          <Categories value={category} onChange={(v) => setCategory(v)} />
+          <Categories />
         </div>
         <div className='col-sm-12 col-md-8'>
           {isLoading && <div>Loading...</div>}

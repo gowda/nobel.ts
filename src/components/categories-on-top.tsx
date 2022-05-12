@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { NobelPrizeCategory } from '../types/api-request';
 
-interface Props {
-  value?: string;
-  onChange: (v?: string) => void;
-}
-
-export default ({ value, onChange }: Props) => {
+export default () => {
+  const { category: value } = useParams();
+  const navigate = useNavigate();
   const [expanded, setExpanded] = useState<boolean>(false);
 
   return (
@@ -26,18 +24,14 @@ export default ({ value, onChange }: Props) => {
         <ul className='navbar-nav'>
           {Object.getOwnPropertyNames(NobelPrizeCategory).map((category) => (
             <li key={category} className='nav-item mt-2'>
-              <button
-                type='button'
+              <Link
+                to={`/${category.toLowerCase()}`}
                 className={`nav-link btn btn-link w-100 justify-content-start text-left ${
-                  value === category ? 'active' : ''
+                  value === category.toLowerCase() ? 'active' : ''
                 }`}
-                onClick={() => {
-                  setExpanded(!expanded);
-                  onChange(category);
-                }}
               >
                 {category}
-              </button>
+              </Link>
             </li>
           ))}
           {value && (
@@ -46,8 +40,8 @@ export default ({ value, onChange }: Props) => {
                 type='button'
                 className='nav-link btn btn-link text-secondary justify-content-start text-left'
                 onClick={() => {
-                  setExpanded(!expanded);
-                  onChange(undefined);
+                  setExpanded(false);
+                  navigate('/', { replace: true });
                 }}
               >
                 <span className='mr-2 font-weight-bold' aria-hidden='true'>
