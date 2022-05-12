@@ -11,7 +11,7 @@ export default () => (
   <QueryClientProvider client={queryClient}>
     <Router>
       <Routes>
-        <Route path='/:category' element={<Container />} />
+        <Route path='/:category/*' element={<Container />} />
         <Route path='/' element={<Container />} />
       </Routes>
     </Router>
