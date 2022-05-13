@@ -1,7 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import _ from 'lodash';
 import { useQuery } from 'react-query';
-import { getLaureates } from './storage';
+import { Award } from './api';
+import { getAwards, getLaureates } from './storage';
 import { Laureate } from './types/laureate';
 
 export const useLaureates = () =>
@@ -35,3 +36,6 @@ export const useAwardLaureates = (category: string, year: string) =>
         }))
     )
   );
+
+export const useAwards = () =>
+  useQuery<Award[], Error>('awards', () => getAwards());

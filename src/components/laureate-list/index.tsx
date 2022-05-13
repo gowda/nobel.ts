@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useLaureates } from '../../queries';
+import { useAwards, useLaureates } from '../../queries';
 import { categoryTag } from '../../utils';
 
 import LoadingMessage from '../loading-message';
@@ -10,6 +10,13 @@ import Item from './item';
 export default () => {
   const { category } = useParams();
   const { isLoading, isError, error, data: laureates } = useLaureates();
+  const { data: awards } = useAwards();
+
+  useEffect(() => {
+    if (awards) {
+      console.log('awards found', awards.length);
+    }
+  }, [awards]);
 
   return (
     <>
