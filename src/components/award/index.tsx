@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import _ from 'lodash';
-import { useAwardLaureates } from '../../queries';
+import { useAward } from '../../queries';
 import { tagCategory } from '../../utils';
 
 import LoadingMessage from '../loading-message';
@@ -14,8 +14,8 @@ export default () => {
     isLoading,
     isError,
     error,
-    data: laureates,
-  } = useAwardLaureates(tagCategory(category!), year!);
+    data: award,
+  } = useAward(tagCategory(category!), year!);
 
   return (
     <>
@@ -29,28 +29,21 @@ export default () => {
 
       {isLoading && <LoadingMessage />}
       {isError && <ErrorMessage message={`Failed to load. ${error.message}`} />}
-      {laureates &&
+      {award &&
+        award.laureates &&
         Object.getOwnPropertyNames(
-          _.groupBy(laureates, ({ nobelPrizes }) => nobelPrizes[0].motivation)
+          _.groupBy(award.laureates, ({ motivation }) => motivation)
         ).map((motivation) => (
           <div className='row mb-2'>
             <div className='col-4'>
-              {laureates
-                .filter(({ nobelPrizes }) =>
-                  nobelPrizes.some(
-                    ({ motivation: prizeMotivation }) =>
-                      prizeMotivation === motivation
-                  )
+              {award.laureates
+                .filter(
+                  ({ motivation: laureateMotivation }) =>
+                    laureateMotivation === motivation
                 )
-                .map(({ fullName, founded, birth }) => (
+                .map(({ fullName }) => (
                   <div className='row'>
-                    <div className='col-12'>
-                      {fullName}
-                      {founded &&
-                        founded.place &&
-                        ` (${founded.place.country})`}
-                      {birth && birth.place && ` (${birth.place.country})`}
-                    </div>
+                    <div className='col-12'>{fullName}</div>
                   </div>
                 ))}
             </div>

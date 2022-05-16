@@ -36,7 +36,15 @@ export const fetchLaureates = (): Promise<Laureate[]> =>
 
       return Promise.resolve([laureates]);
     })
-    .then((arrayOfLaureates) => _.flatten(arrayOfLaureates).map(transform));
+    .then((arrayOfLaureates) =>
+      _.flatten(arrayOfLaureates)
+        .map(transform)
+        .map(({ awardYear, ...rest }) => ({
+          year: awardYear,
+          awardYear,
+          ...rest,
+        }))
+    );
 
 interface AwardsAPILaureate {
   id: string;
@@ -71,10 +79,20 @@ interface AwardsAPIResponse {
   };
 }
 
+interface AwardLaureate {
+  id: string;
+  knownName: string;
+  fullName: string;
+  portion: string;
+  sortOrder: string;
+  motivation: string;
+}
+
 export interface Award {
+  awardYear: string;
   year: string;
   category: string;
-  laureates: Partial<Laureate>[];
+  laureates: AwardLaureate[];
 }
 
 export const fetchAwards = (): Promise<Award[]> =>

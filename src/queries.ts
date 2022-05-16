@@ -39,3 +39,14 @@ export const useAwardLaureates = (category: string, year: string) =>
 
 export const useAwards = () =>
   useQuery<Award[], Error>('awards', () => getAwards());
+
+export const useAward = (category: string, year: string) =>
+  useQuery<Award, Error>(['awards', category, year], () =>
+    getAwards().then(
+      (awards) =>
+        awards.find(
+          ({ category: awardCategory, awardYear }) =>
+            awardCategory === category && awardYear === year
+        )!
+    )
+  );
