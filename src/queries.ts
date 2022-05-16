@@ -60,3 +60,18 @@ export const useAward = (category: string, year: string) =>
         )!
     )
   );
+
+export const useLaureate = (id: string) =>
+  useQuery<Laureate, Error>(['laureates', id], () =>
+    getLaureates()
+      .then((laureates) =>
+        laureates.find(({ id: laureateId }) => laureateId === id)
+      )
+      .then((laureate) => {
+        if (laureate) {
+          return laureate;
+        }
+
+        return Promise.reject(new Error(`Laureate not found for ${id}`));
+      })
+  );

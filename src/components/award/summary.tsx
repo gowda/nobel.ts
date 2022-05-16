@@ -2,6 +2,7 @@ import React from 'react';
 
 import _ from 'lodash';
 
+import { Link } from 'react-router-dom';
 import { Award } from '../../api';
 
 type Props = Award;
@@ -18,9 +19,13 @@ export default ({ laureates }: Props) => (
               ({ motivation: laureateMotivation }) =>
                 laureateMotivation === motivation
             )
-            .map(({ fullName, orgName }) => (
+            .map(({ id, fullName, orgName }) => (
               <div className='row'>
-                <div className='col-12'>{fullName || orgName}</div>
+                <div className='col-12'>
+                  <Link to={`/${fullName ? 'people' : 'orgs'}/${id}`}>
+                    {fullName || orgName}
+                  </Link>
+                </div>
               </div>
             ))}
         </div>

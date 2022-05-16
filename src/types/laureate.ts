@@ -17,9 +17,19 @@ interface Event {
 }
 
 export interface Laureate {
+  id: string;
   fullName?: string;
   orgName?: string;
   birth?: Event;
+  death?: Event;
   founded?: Event;
   nobelPrizes: Award[];
+  wikipedia?: {
+    slug: string;
+    english: string;
+  };
+  links: {
+    rel: string;
+    href: string;
+  }[];
 }
