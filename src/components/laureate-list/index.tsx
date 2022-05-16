@@ -1,41 +1,52 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useAwards, useLaureates } from '../../queries';
-import { categoryTag } from '../../utils';
+import { useAwards } from '../../queries';
 
 import LoadingMessage from '../loading-message';
 import ErrorMessage from '../error-message';
-import Item from './item';
+import Summary from '../award/summary';
+import { tagCategory } from '../../utils';
 
 export default () => {
   const { category } = useParams();
-  const { isLoading, isError, error, data: laureates } = useLaureates();
-  const { data: awards } = useAwards();
-
-  useEffect(() => {
-    if (awards) {
-      console.log('awards found', awards.length);
-    }
-  }, [awards]);
+  const {
+    isLoading,
+    isError,
+    error,
+    data: awards,
+  } = useAwards(tagCategory(category!));
 
   return (
     <>
       {isLoading && <LoadingMessage />}
       {isError && <ErrorMessage message={`Failed to load. ${error.message}`} />}
-      {laureates &&
-        laureates
-          .filter(({ nobelPrizes }) =>
-            nobelPrizes.some(({ category: prizeCategory }) =>
-              category ? categoryTag(prizeCategory) === category : true
-            )
-          )
-          .map((laureate) => (
-            <div key={laureate.fullName} className='row mt-4'>
-              <div className='col-12'>
-                <Item {...laureate} />
+      {awards &&
+        awards.map((award) => (
+          <div
+            key={`${award.category}-${award.awardYear}`}
+            className='row mt-4'
+          >
+            <div className='col-3'>
+              <span>
+                {award.category}, {award.awardYear}
+              </span>
+            </div>
+            <div className='col'>
+              {award.topMotivation && (
+                <div className='row'>
+                  <div className='col text-muted fst-italic'>
+                    {award.topMotivation}
+                  </div>
+                </div>
+              )}
+              <div className='row'>
+                <div className='col'>
+                  <Summary {...award} />
+                </div>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
     </>
   );
 };

@@ -82,7 +82,8 @@ interface AwardsAPIResponse {
 interface AwardLaureate {
   id: string;
   knownName: string;
-  fullName: string;
+  fullName?: string;
+  orgName?: string;
   portion: string;
   sortOrder: string;
   motivation: string;
@@ -92,6 +93,7 @@ export interface Award {
   awardYear: string;
   year: string;
   category: string;
+  topMotivation?: string;
   laureates: AwardLaureate[];
 }
 

@@ -37,8 +37,18 @@ export const useAwardLaureates = (category: string, year: string) =>
     )
   );
 
-export const useAwards = () =>
-  useQuery<Award[], Error>('awards', () => getAwards());
+export const useAwards = (category?: string) =>
+  useQuery<Award[], Error>(['awards', category], () =>
+    getAwards().then((awards) =>
+      awards.filter(({ category: awardCategory }) => {
+        if (category) {
+          return awardCategory === category;
+        }
+
+        return true;
+      })
+    )
+  );
 
 export const useAward = (category: string, year: string) =>
   useQuery<Award, Error>(['awards', category, year], () =>
