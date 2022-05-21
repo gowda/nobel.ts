@@ -31,7 +31,7 @@ jobs:
       - name: Copy generated javascript bundle
         run: |
           cp -va dist/bundle.js dist/css dist/index.html .
-          rmdir dist
+          rm -rf dist
       - name: Commit the changes
         run: |
           cd $GITHUB_WORKSPACE
