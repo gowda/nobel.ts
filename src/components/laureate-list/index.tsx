@@ -19,7 +19,9 @@ export default () => {
   return (
     <>
       {isLoading && <LoadingMessage />}
-      {isError && <ErrorMessage message={`Failed to load. ${error.message}`} />}
+      {isError && (
+        <ErrorMessage message={`Failed to load. ${error!.message}`} />
+      )}
       {awards &&
         awards.map((award) => (
           <div

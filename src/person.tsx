@@ -13,7 +13,9 @@ export default () => {
   return (
     <>
       {isLoading && <LoadingMessage />}
-      {isError && <ErrorMessage message={`Failed to load. ${error.message}`} />}
+      {isError && (
+        <ErrorMessage message={`Failed to load. ${error!.message}`} />
+      )}
       {laureate && (
         <>
           <div className='row mt-4'>
