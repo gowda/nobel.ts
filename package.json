@@ -8,6 +8,7 @@
     "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack --mode production --config webpack.production.ts",
     "start": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack serve --mode development --config webpack.development.ts",
     "features": "npm run cypress",
+    "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "cypress": "start-server-and-test http://localhost:3000 cypress:run",
     "test": "jest src"
